@@ -1,4 +1,4 @@
-public class Gimnasio {
+public class Cliente {
     private SalaEntrenamiento sala; // Sala donde quiere entrar
     private String nombre;          // Nombre del cliente
 
