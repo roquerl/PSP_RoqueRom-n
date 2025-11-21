@@ -26,17 +26,16 @@ public class ColaLimitada {
             } catch (Exception e) {
                 // TODO: handle exception
             }
-
-            //Aqui ya tenemos espacio y agregamos el número
-            cola.add(numero);
-            System.out.println("Productor produce: " + numero + " | Cola: " + cola);
-
-            //Avisamos a los hilos en espera (Consumidor)
-            notifyAll();
             
         }
 
+        
+         //Aqui ya tenemos espacio y agregamos el número
+        cola.add(numero);
+        System.out.println("Productor produce: " + numero + " | Cola: " + cola);
 
+        //Avisamos a los hilos en espera (Consumidor)
+        notifyAll();
 
     }
 
@@ -61,13 +60,6 @@ public class ColaLimitada {
 
 
     }
-
-
-
-
-
-
-
 
 
 }

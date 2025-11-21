@@ -28,9 +28,10 @@ public class Consumidor extends Thread{
 
             //Lo dormimos para comprobar
             Thread.sleep(700);
-        }
+            
+            }
 
-        System.out.println("Suma final consumida: " + sumaTotal);
+            System.out.println("Suma final consumida: " + sumaTotal);
             
         } catch (Exception e) {
             e.printStackTrace();
