@@ -2,32 +2,27 @@ package eje2;
 
 public class ConsumidorSuma extends Thread { 
 
-    private final Cola cola;
+    private Cola cola;
+    private int suma = 0;
 
-    public ConsumidorSuma(Cola cola){
+    public ConsumidorSuma(Cola cola) {
         this.cola = cola;
     }
 
     @Override
     public void run() {
-        int suma = 0;
 
-        try {
-            
-            for(int i = 0; i < 10; i++){
-                int n = cola.consumir();
-                suma += n;
+        for (int i = 1; i <= 10; i++) {
 
-                System.out.println("Consumidor Suma recibe: " + n + " suma = " + suma);
+            int numero = cola.leerSinEliminar(); // leer sin poll()
+            suma += numero;
 
-                Thread.sleep(500);
-
-            }
-
-
-        } catch (Exception e) {
-            // TODO: handle exception
+            try {
+                Thread.sleep(700);
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
+
+        System.out.println("\n>>> SUMA TOTAL = " + suma);
     }
     
 }

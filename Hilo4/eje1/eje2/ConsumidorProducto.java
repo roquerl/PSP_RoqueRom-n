@@ -1,29 +1,27 @@
 package eje2;
 
 public class ConsumidorProducto extends Thread{
-    
-    private final Cola cola;
+   private Cola cola;
+    private long producto = 1;
 
-    public ConsumidorProducto (Cola cola){
+    public ConsumidorProducto(Cola cola) {
         this.cola = cola;
     }
 
     @Override
     public void run() {
-        int producto = 1;
 
-        try {
+        for (int i = 1; i <= 10; i++) {
 
-            for(int i = 0; i < 10; i++){
-                int n = cola.consumir();
-                producto *= n;
+            int numero = cola.leerSinEliminar();
+            producto *= numero;
 
-                System.out.println("Consumidor Producto recibe " + n + " produce = " + producto);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                Thread.sleep(900);
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
+
+        System.out.println("\n>>> PRODUCTO TOTAL = " + producto);
     }
 
 

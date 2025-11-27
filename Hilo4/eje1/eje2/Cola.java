@@ -1,55 +1,48 @@
 package eje2;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Cola {
-    private final int [] buffer = new int[5];
+   
+    private Queue<Integer> cola = new LinkedList<>();
+    private final int CAPACIDAD = 5;
 
-    private int count = 0;
-
-    private int añadir = 0;
-
-    private int leer = 0;
-
-    //Método para producir números
-    public synchronized void producir(int num) throws InterruptedException{
-        
-        while (count == buffer.length) { //Mienta contador es 0 y tamaño es 0 del buffer espera
-            wait();
+    // PRODUCIR (igual que ejercicio 1)
+    public synchronized void producir(int numero) {
+        while (cola.size() == CAPACIDAD) {
+            try {
+                System.out.println("Cola llena → Productor esperando...");
+                wait();
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
-        //Añadimos en nuestro buffer los numeros
-        buffer[añadir] = num;
-
-        //Contamos y sacamos el resto
-        añadir = (añadir + 1 ) % buffer.length;
-
-        //Contamos si se ha producido
-        count++;
-
-        System.out.println("Productor produce: " + num);
-
-        notifyAll(); //Avisamos a los consumidores
-
-    } 
-
-    //Método para consumir números
-    public synchronized int consumir() throws InterruptedException{
-        while (count == 0) {
-            wait();
-        }
-
-        int num = buffer[0];
-
-        leer = (leer + 1) % buffer.length;
-
-        count--;
-
+        cola.add(numero);
+        System.out.println("Productor produce: " + numero + " | Cola: " + cola);
         notifyAll();
-
-        return num;
-
-
     }
 
+    /**
+     * Nuevo método para el ejercicio 2:
+     * leerSinEliminar(): permite que varios consumidores lean el MISMO número.
+     */
+    public synchronized int leerSinEliminar() {
+
+        // Si cola vacía, consumidor espera
+        while (cola.isEmpty()) {
+            try {
+                System.out.println("Cola vacía → Consumidor esperando...");
+                wait();
+            } catch (InterruptedException e) { e.printStackTrace(); }
+        }
+
+        // Leer primer valor sin eliminarlo
+        int numero = cola.peek();
+        System.out.println("Consumidor lee (sin eliminar): " + numero);
+
+        notifyAll();
+        return numero;
+    }
 
 
 }

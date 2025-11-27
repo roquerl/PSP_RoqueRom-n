@@ -2,15 +2,25 @@ package eje2;
 
 public class Main {
     public static void main(String[] args) {
-        Cola cola = new Cola();
+          Cola cola = new Cola();
 
-        Productor p = new Productor(cola);
-        ConsumidorSuma c1 = new ConsumidorSuma(cola);
-        ConsumidorProducto c2 = new ConsumidorProducto(cola);
+        Productor productor = new Productor(cola);
+        ConsumidorSuma consumidor1 = new ConsumidorSuma(cola);
+        ConsumidorProducto consumidor2 = new ConsumidorProducto(cola);
 
-        p.start();
-        c1.start();
-        c2.start();
+        productor.start();
+        consumidor1.start();
+        consumidor2.start();
+
+        try {
+            productor.join();
+            consumidor1.join();
+            consumidor2.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("\n>>> EJERCICIO 2 COMPLETADO <<<");
     }
     
 }
